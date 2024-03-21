@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Catálogo de Produtos</title>
+<style>
+    body {
+        background-color: #f2f2f2;
+        font-family: Arial, sans-serif;
+    }
+    .container {
+        margin: 50px auto;
+        padding: 20px;
+        max-width: 600px;
+        background-color: #ffffff;
+        border-radius: 5px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1, h2, h3 {
+        color: #333333;
+    }
+    input, button {
+        margin-bottom: 10px;
+    }
+</style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Catálogo de Produtos</h2>
+    <div id="output"></div>
+    <button onclick="showOptions()">Mostrar Opções</button>
+</div>
+
+<script>
+    function showOptions() {
+        var output = document.getElementById('output');
+        output.innerHTML = '<h3>Escolha uma opção:</h3>' +
+                           '<button onclick="addProduct()">Adicionar Produto</button>' +
+                           '<button onclick="searchProduct()">Buscar Produto</button>' +
+                           '<button onclick="updateProduct()">Atualizar Produto</button>' +
+                           '<button onclick="viewAllProducts()">Visualizar Todos os Produtos</button>' +
+                           '<button onclick="removeProduct()">Remover Produto</button>' +
+                           '<button onclick="exit()">Sair</button>';
+    }
+
+    function addProduct() {
+        var productName = prompt("Digite o nome do produto:");
+        var productPrice = prompt("Digite o preço do produto:");
+        var productDescription = prompt("Digite a descrição do produto:");
+        
+        // Verificar se todos os campos foram preenchidos antes de adicionar o produto
+        if (productName && productPrice && productDescription) {
+            // Armazenar os dados do produto em HTML puro
+            var productHTML = '<p><strong>Nome:</strong> ' + productName + '<br>' +
+                              '<strong>Preço:</strong> ' + productPrice + '<br>' +
+                              '<strong>Descrição:</strong> ' + productDescription + '</p>';
+            // Adicionar o HTML do produto ao div de output
+            var output = document.getElementById('output');
+            output.innerHTML += productHTML;
+            alert("Produto adicionado com sucesso:\nNome: " + productName + "\nPreço: " + productPrice + "\nDescrição: " + productDescription);
+        } else {
+            alert("Por favor, preencha todos os campos.");
+        }
+    }
+
+    function viewAllProducts() {
+        var output = document.getElementById('output');
+        output.innerHTML = '<h3>Produtos no Catálogo:</h3>';
+        
+        // Verificar se há produtos no catálogo
+        if (products.length > 0) {
+            // Loop para exibir todos os produtos
+            for (var i = 0; i < products.length; i++) {
+                output.innerHTML += '<p><strong>Nome:</strong> ' + products[i].name + '<br>' +
+                                    '<strong>Preço:</strong> ' + products[i].price + '<br>' +
+                                    '<strong>Descrição:</strong> ' + products[i].description + '</p>';
+            }
+        } else {
+            output.innerHTML += '<p>Nenhum produto encontrado.</p>';
+        }
+        alert("Função de visualizar todos os produtos não implementada ainda.");
+    }
+
+
+    function searchProduct() {
+    var productName = prompt("Digite o nome do produto que deseja buscar:");
+    var output = document.getElementById('output');
+    var productFound = false;
+    
+    for (var i = 0; i < products.length; i++) {
+        if (products[i].name.toLowerCase() === productName.toLowerCase()) {
+            output.innerHTML = '<h3>Produto Encontrado:</h3>' +
+                               '<p><strong>Nome:</strong> ' + products[i].name + '<br>' +
+                               '<strong>Preço:</strong> ' + products[i].price + '<br>' +
+                               '<strong>Descrição:</strong> ' + products[i].description + '</p>';
+            productFound = true;
+            break;
+        }
+    }
+    
+    if (!productFound) {
+        output.innerHTML = '<p>Produto não encontrado.</p>';
+    }
+}
+
+
+function updateProduct() {
+    var productName = prompt("Digite o nome do produto que deseja atualizar:");
+    var output = document.getElementById('output');
+    var productFound = false;
+
+    for (var i = 0; i < products.length; i++) {
+        if (products[i].name.toLowerCase() === productName.toLowerCase()) {
+            var newPrice = prompt("Digite o novo preço para o produto:");
+            var newDescription = prompt("Digite a nova descrição para o produto:");
+            
+            // Verifica se o novo preço foi informado
+            if (newPrice !== null && newPrice !== "") {
+                products[i].price = newPrice;
+            }
+
+            // Verifica se a nova descrição foi informada
+            if (newDescription !== null && newDescription !== "") {
+                products[i].description = newDescription;
+            }
+
+            output.innerHTML = '<h3>Produto Atualizado:</h3>' +
+                               '<p><strong>Nome:</strong> ' + products[i].name + '<br>' +
+                               '<strong>Preço:</strong> ' + products[i].price + '<br>' +
+                               '<strong>Descrição:</strong> ' + products[i].description + '</p>';
+            productFound = true;
+            break;
+        }
+    }
+
+    if (!productFound) {
+        output.innerHTML = '<p>Produto não encontrado.</p>';
+    }
+}
+
+function removeProduct() {
+    var productName = prompt("Digite o nome do produto que deseja remover:");
+    var output = document.getElementById('output');
+    var productFound = false;
+
+    for (var i = 0; i < products.length; i++) {
+        if (products[i].name.toLowerCase() === productName.toLowerCase()) {
+            products.splice(i, 1); // Remove o produto do array
+            output.innerHTML = '<p>Produto removido com sucesso.</p>';
+            productFound = true;
+            break;
+        }
+    }
+
+    if (!productFound) {
+        output.innerHTML = '<p>Produto não encontrado.</p>';
+    }
+}
+
+function exit() {
+    // Redireciona para uma página em branco, efetivamente saindo da página atual
+    window.location.href = 'about:blank';
+}
+
+
+
+
+
+
+</script>
+
+</body>
+</html>
